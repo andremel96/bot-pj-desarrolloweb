@@ -1,4 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express')
+const app = express()
+const cors = require("cors");
+app.use(cors())
+app.use(express.json())
 const axios = require('axios');
 const messageGenerator = require('./messageGenerator')
 
@@ -113,3 +118,14 @@ bot.onText(/\/iniciarsesion (.+)/, function onLoveText(msg, match) {
         bot.sendMessage(chatId, '🤖 Ingresa un correo y contraseña valido')
     }
 });
+
+const PORT=process.env.PORT || 3002;
+
+app.route('/').get((req, res) => {
+    res.json({"status":"operacion exitosa"})
+})
+const server = app.listen(PORT, () => {
+    console.log(` Heroku Fix XD
+    🚀 Server ready at: http://localhost:${PORT}
+    ⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`)
+})
